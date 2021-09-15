@@ -1,5 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
+VM_BOX = "bento/ubuntu-18.04"
 
 Vagrant.configure("2") do |config|
   # provisioner configuration
@@ -11,11 +12,11 @@ Vagrant.configure("2") do |config|
   
   # provisioning and configuring master-node
   config.vm.define "master-node" do |master|
-    master.vm.box = "bento/ubuntu-18.04"
+    master.vm.box = VM_BOX
   end
 
   # provisioning and configuring worker-node1
   config.vm.define "worker-node-1" do |worker1|
-    worker1.vm.box = "bento/ubuntu-18.04"
+    worker1.vm.box = VM_BOX
   end
 end
