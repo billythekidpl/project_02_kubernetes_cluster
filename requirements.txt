@@ -1,0 +1,8 @@
+1. Four separate virtual machines
+2. One machine as a master and 3 as worker nodes
+3. Image: Ubuntu-18.04
+4. VM provider: VirtualBox
+5. RAM capacity: 2GB per VM
+6. Nr of CPUs: 1 per VM
+7. All of VMs should be able to communicate through private network: 19.0.0.0/24
+8. VM names: master-node, worker-node-1, worker-node-2, worker-node-3
