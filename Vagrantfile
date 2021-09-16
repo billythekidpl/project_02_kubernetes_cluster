@@ -7,6 +7,8 @@ WORKER_CPU = "1"
 WORKERS_QUANTITY = 3
 
 Vagrant.configure("2") do |config|
+
+  provisioner = Vagrant::Util::Platform.windows? ? :guest_ansible : :ansible
   
   # provisioning and configuration of master-node
   config.vm.define "master-node" do |master|
@@ -19,7 +21,7 @@ Vagrant.configure("2") do |config|
     master.vm.network "private_network", ip: "19.0.0.10"
     master.vm.hostname = "master-node"
     # using Ansible to configure master-node
-    master.vm.provision "ansible" do |ansible|
+    master.vm.provision provisioner do |ansible|
       ansible.playbook = "conf-playbooks/master-node.yaml"
     end
   end
@@ -36,7 +38,7 @@ Vagrant.configure("2") do |config|
       worker.vm.network "private_network", ip: "19.0.0.#{i+10}"
       worker.vm.hostname = "worker-node-#{i}"
       # using Ansible to configure master-node
-      master.vm.provision "ansible" do |ansible|
+      worker.vm.provision provisioner do |ansible|
         ansible.playbook = "conf-playbooks/worker-node.yaml"
       end
     end
