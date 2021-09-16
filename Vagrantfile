@@ -18,7 +18,12 @@ Vagrant.configure("2") do |config|
     end
     master.vm.network "private_network", ip: "19.0.0.10"
     master.vm.hostname = "master-node"
+    # using Ansible to configure master-node
+    master.vm.provision "ansible" do |ansible|
+      ansible.playbook = "conf-playbooks/master-node.yaml"
+    end
   end
+
   # provisioning and configuration of worker-nodes
   (1..WORKERS_QUANTITY).each do |i|
     config.vm.define "worker-node-#{i}" do |worker|
@@ -30,6 +35,10 @@ Vagrant.configure("2") do |config|
       end
       worker.vm.network "private_network", ip: "19.0.0.#{i+10}"
       worker.vm.hostname = "worker-node-#{i}"
+      # using Ansible to configure master-node
+      master.vm.provision "ansible" do |ansible|
+        ansible.playbook = "conf-playbooks/worker-node.yaml"
+      end
     end
   end
 end
