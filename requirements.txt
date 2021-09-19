@@ -6,3 +6,7 @@
 6. Nr of CPUs: 1 per VM
 7. All of VMs should be able to communicate through private network: 19.0.0.0/24
 8. VM names: master-node, worker-node-1, worker-node-2, worker-node-3
+
+PREREQUISITES
+1. Vagrant installed on host machine
+2. if Linux - ansible installed on host machine

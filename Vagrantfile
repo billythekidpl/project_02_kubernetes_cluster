@@ -7,9 +7,11 @@ WORKER_CPU = "1"
 WORKERS_QUANTITY = 3
 
 Vagrant.configure("2") do |config|
-
-  provisioner = Vagrant::Util::Platform.windows? ? :guest_ansible : :ansible
   
+  #checking if host machine is using Wondows. If so, change provisioning method to ansible_local
+  provisioner = Vagrant::Util::Platform.windows? ? :ansible_local : :ansible
+  config.ssh.insert_key = false
+
   # provisioning and configuration of master-node
   config.vm.define "master-node" do |master|
     master.vm.box = VM_BOX
@@ -23,6 +25,7 @@ Vagrant.configure("2") do |config|
     # using Ansible to configure master-node
     master.vm.provision provisioner do |ansible|
       ansible.playbook = "conf-playbooks/master-node.yaml"
+      ansible.extra_vars = { ansible_python_interpreter:"/usr/bin/python3" }
     end
   end
 
@@ -40,6 +43,7 @@ Vagrant.configure("2") do |config|
       # using Ansible to configure master-node
       worker.vm.provision provisioner do |ansible|
         ansible.playbook = "conf-playbooks/worker-node.yaml"
+        ansible.extra_vars = { ansible_python_interpreter:"/usr/bin/python3" }
       end
     end
   end
