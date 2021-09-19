@@ -1,3 +1,4 @@
 .vagrant
 .vscode
 vagrant_ansible_inventory*
+conf-playbooks/join-command
