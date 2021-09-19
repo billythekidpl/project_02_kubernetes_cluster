@@ -39,7 +39,7 @@
     notify:
       - docker status
 
-  - name: Configure Docker's default cgroup driver to systemd and restart Docker
+  - name: Configure Docker's default cgroup driver to systemd
     lineinfile:
       path: /lib/systemd/system/docker.service
       regexp: '^(.*)--containerd=/run/containerd/containerd.sock(.*)$'
