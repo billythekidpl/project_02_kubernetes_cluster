@@ -25,7 +25,10 @@ Vagrant.configure("2") do |config|
     # using Ansible to configure master-node
     master.vm.provision provisioner do |ansible|
       ansible.playbook = "conf-playbooks/master-node.yaml"
-      ansible.extra_vars = { ansible_python_interpreter:"/usr/bin/python3" }
+      ansible.extra_vars = { 
+        ansible_python_interpreter:"/usr/bin/python3",
+        node_ip: "19.0.0.10"
+      }
     end
   end
 
@@ -43,7 +46,10 @@ Vagrant.configure("2") do |config|
       # using Ansible to configure master-node
       worker.vm.provision provisioner do |ansible|
         ansible.playbook = "conf-playbooks/worker-node.yaml"
-        ansible.extra_vars = { ansible_python_interpreter:"/usr/bin/python3" }
+        ansible.extra_vars = {
+          ansible_python_interpreter:"/usr/bin/python3",
+          node_ip: "19.0.0.#{i+10}"
+        }
       end
     end
   end
